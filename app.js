@@ -45,38 +45,6 @@ app.get('/', function(req, res){
 
 });
 
-app.get('/place', function(req, res){
-
-  var params = {
-    Item: {
-      id: {
-        S: uuid.v1()
-      },
-      timestamp: {
-        N: Date.now().toString()
-      },
-      blob: {
-        SS: ['data:{test:"for science!"}', 'and:{other:"things to be tested"}']
-      }
-    },
-    TableName: 'wearDump'
-  };
-
-  db.putItem(params, function(err, data){
-    if (err) res.send(err + err.stack);
-    else res.send(data);
-  });
-
-});
-
-app.get('/put', function(req, res){
-
-  var body = '<html><head><title>Put</title><script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script></head><body><a href="#" id="btn">Put request</a></body></html>';
-
-  res.send(body);
-
-});
-
 app.post('/push', function(req, res){
 
   console.log(req.body.data);
