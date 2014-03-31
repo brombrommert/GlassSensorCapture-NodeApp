@@ -1,0 +1,13 @@
+{
+  "name": "glasswearscriptdump",
+  "version": "0.0.1",
+  "description": "Dumps the wearscript sensor data into dynamodb",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": ">= 1.5.0",
+    "node-uuid": ">= 1.4.1"
+  },
+  "devDependencies": {
+    "express": "^3.5.0"
+  }
+}
