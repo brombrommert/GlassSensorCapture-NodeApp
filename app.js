@@ -62,7 +62,7 @@ app.get('/get', function(req, res){
 
   db.scan(params, function(err, data){
     if (err) res.send(err + err.stack);
-    else res.send(data);
+    else res.send(JSON.stringify(data).replace(/\\/g, ''));
   });
 
 });
