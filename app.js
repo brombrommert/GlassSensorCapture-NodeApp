@@ -45,6 +45,28 @@ app.get('/', function(req, res){
 
 });
 
+app.get('/get', function(req, res){
+
+  var params = {
+    TableName: 'wearDump',
+    ScanFilter: {
+      timestamp: {
+        ComparisonOperator: 'BETWEEN',
+        AttributeValueList: [
+          { N: '1390000000000' },
+          { N: '1400000000000' }
+        ]
+      }
+    }
+  };
+
+  db.scan(params, function(err, data){
+    if (err) res.send(err + err.stack);
+    else res.send(data);
+  });
+
+});
+
 app.post('/push', function(req, res){
 
   console.log(req.body.data);
