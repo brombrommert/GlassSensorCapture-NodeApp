@@ -8,6 +8,7 @@
     "node-uuid": ">= 1.4.1"
   },
   "devDependencies": {
-    "express": "^3.5.0"
+    "express": "^3.5.0",
+    "zepto": "0.0.4"
   }
 }
