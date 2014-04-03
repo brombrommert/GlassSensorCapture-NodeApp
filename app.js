@@ -157,7 +157,7 @@ app.post('/push', function(req, res){
 
   console.log(req.body.data);
 
-  var params = {
+  params = {
     Item: {
       id: {
         S: uuid.v1()
@@ -176,6 +176,36 @@ app.post('/push', function(req, res){
     if (err) res.send(err + err.stack);
     else res.status(200).send('Packet received, containing ' + Buffer.byteLength(req.body.data) + ' bytes.');
   });
+
+});
+
+app.post('/push2', function(req, res){
+
+  // res.status(200).send('Packet received, containing ' + Buffer.byteLength(req.body.data) + ' bytes.');
+  var packet = req.body.data;
+
+  for (var i = 0; i < packet.length; i++) {
+
+    var chunk = packet[i];
+
+    var params = {
+      TableName: 'wearDump2',
+      Item: {
+        id:           { S: uuid.v1() },
+        timestamp:    { N: Math.round(chunk.timestamp).toString() },
+        name:         { S: chunk.name },
+        timestampRaw: { N: Math.round(chunk.timestampRaw).toString() },
+        type:         { N: chunk.type.toString() },
+        values:       { S: JSON.stringify(chunk.values) }
+      }
+    };
+
+    db.putItem(params, function(err, data){
+      if (err) res.send(err + err.stack);
+      else res.status(200).send('Packet received, chunks saved, containing ' + Buffer.byteLength(packet) + ' bytes total.');
+    });
+
+  }
 
 });
 
